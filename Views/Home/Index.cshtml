@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+<div class="container-fluid">
+    <h2>Historical Records</h2>
+</div>
+
+<div class="container-fluid">
+    <h4>Search records</h4>
+
+    <form class="form-inline">
+        <div class="form-group">
+            Date from
+            @Html.TextBox("filterFromDate", "1993/01/01", new { @id = "filterFromDate", @class = "datefield form-control input-sm" })
+        </div>
+        <div class="form-group">
+            to
+            @Html.TextBox("filterToDate", DateTime.Today.ToString("yyyy/MM/dd"), new { @id = "filterToDate", @class = "datefield form-control input-sm" })
+        </div>
+    </form>
+</div>
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table id="markSixRecordTable" class="table table-condensed table-bordered table-striped">
+            <thead class="recordhistory">
+                <tr>
+                    <th>Draw Number</th>
+                    <th>Snowball</th>
+                    <th>Snowball Description</th>
+                    <th>Draw Date</th>
+                    <th>Number 1</th>
+                    <th>Number 2</th>
+                    <th>Number 3</th>
+                    <th>Number 4</th>
+                    <th>Number 5</th>
+                    <th>Number 6</th>
+                    <th>Special Number</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<script>
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            var startDate = Date.parse($("#filterFromDate").val());
+            var endDate = Date.parse($("#filterToDate").val());
+            var drawDate = Date.parse(data[3]);
+
+            if ((isNaN(startDate) && isNaN(endDate)) ||
+                (isNaN(startDate) && drawDate <= endDate) ||
+                (startDate <= drawDate && isNaN(endDate)) ||
+                (startDate <= drawDate && drawDate <= endDate)) {
+                return true;
+            }
+            return false;
+        }
+    );
+
+    $(document).ready(function () {
+        $("#markSixRecordTable").DataTable({
+            "ajax": {
+                "url": "/Home/GetMarkSixRecords/",
+                "dataSrc": ""
+            },
+            "order": [[3, "desc"]],
+            "columns": [
+                { "data": "DrawNumber" },
+                { "data": "Snowball" },
+                { "data": "SnowballDesc" },
+                { "data": "DrawDateDisplay" },
+                { "data": "LuckyNum1" },
+                { "data": "LuckyNum2" },
+                { "data": "LuckyNum3" },
+                { "data": "LuckyNum4" },
+                { "data": "LuckyNum5" },
+                { "data": "LuckyNum6" },
+                { "data": "LuckyNumSpecial" }]
+        });
+
+        $("#filterFromDate, #filterToDate").keyup(function () {
+            $("#markSixRecordTable").DataTable().draw();
+        });
+    }); 
+</script>

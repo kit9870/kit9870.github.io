@@ -1,0 +1,147 @@
+﻿<script>
+    $(document).ready(function () {
+
+        var activeSelection = "@ViewBag.ActiveSelection";
+        switch (activeSelection)
+        {
+            case "45":
+                $("#lblFortyFive").addClass("active");
+                break;
+            case "47":
+                $("#lblFortySeven").addClass("active");
+                break;
+            case "49":
+                $("#lblFortyNine").addClass("active");
+                break;
+            default:
+                $("#lblFortyFive").addClass("active");
+                break;
+        }
+
+        $("input[name='NumberSize']").change(function () {
+            $("#NumberSizeForm").submit();
+        });
+    });
+</script>
+
+@using System.Configuration
+
+@model LuckyDraw.Models.NumberCount
+
+@{
+    ViewBag.Title = "Record Analysis";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+
+    string rootPath = ConfigurationManager.AppSettings["ImagesRootPath"];
+    string imageFileName;
+    string imagePath;
+}
+
+<h2>Record Analysis</h2>
+
+<div class="container-fluid">
+    @using (Html.BeginForm("Index", "RecordAnalysis", FormMethod.Post, new { @class = "form-inline", @id = "NumberSizeForm" }))
+    {
+        <div class="form-group">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary" id="lblFortyFive">
+                    @Html.RadioButton("NumberSize", "45", false, new { @id= "btnFortyFive" })
+                    45 Numbers
+                </label>   
+                <label class="btn btn-primary" id = "lblFortySeven">
+                    @Html.RadioButton("NumberSize", "47", false, new { @id = "btnFortySeven" })
+                    47 Numbers
+                </label>
+                <label class="btn btn-primary" id = "lblFortyNine">
+                    @Html.RadioButton("NumberSize", "49", false, new { @id = "btnFortyNine" })
+                    49 Numbers
+                </label>
+            </div>
+        </div>
+    }
+</div>
+<p></p>
+<div class="table-responsive">
+    <table class="table num-appear-table">
+        <tr>
+            @for (int i = 1; i < 11; i++)
+            {
+                imageFileName = String.Format("no_{0}_s.gif", i.ToString().PadLeft(2, '0'));
+                imagePath = Url.Content(rootPath + imageFileName);
+                <td><img src="@imagePath" class="img-responsive" alt="No. @i" /></td>
+                }
+        </tr>
+        <tr>
+            @for (int i = 0; i < 10; i++)
+            {
+                <td>@Model.numberCountList.ElementAt(i)</td>
+            }
+        </tr>
+        <tr>
+            @for (int i = 11; i < 21; i++)
+            {
+                imageFileName = String.Format("no_{0}_s.gif", i.ToString().PadLeft(2, '0'));
+                imagePath = Url.Content(rootPath + imageFileName);
+                <td><img src="@imagePath" class="img-responsive" alt="No. @i" /></td>
+            }
+        </tr>
+        <tr>
+            @for (int i = 10; i < 20; i++)
+            {
+                <td>@Model.numberCountList.ElementAt(i)</td>
+            }
+        </tr>
+        <tr>
+            @for (int i = 21; i < 31; i++)
+            {
+                imageFileName = String.Format("no_{0}_s.gif", i.ToString().PadLeft(2, '0'));
+                imagePath = Url.Content(rootPath + imageFileName);
+                <td><img src="@imagePath" class="img-responsive" alt="No. @i" /></td>
+            }
+        </tr>
+        <tr>
+            @for (int i = 20; i < 30; i++)
+            {
+                <td>@Model.numberCountList.ElementAt(i)</td>
+            }
+        </tr>
+        <tr>
+            @for (int i = 31; i < 41; i++)
+            {
+                imageFileName = String.Format("no_{0}_s.gif", i.ToString().PadLeft(2, '0'));
+                imagePath = Url.Content(rootPath + imageFileName);
+                <td><img src="@imagePath" class="img-responsive" alt="No. @i" /></td>
+            }
+        </tr>
+        <tr>
+            @for (int i = 30; i < 40; i++)
+            {
+                <td>@Model.numberCountList.ElementAt(i)</td>
+            }
+        </tr>
+        <tr>
+            @for (int i = 41; i < 51; i++)
+            {
+                <td>
+                    @if (i <= Model.numberCountList.Count)
+                    {
+                        imageFileName = String.Format("no_{0}_s.gif", i.ToString().PadLeft(2, '0'));
+                        imagePath = Url.Content(rootPath + imageFileName);
+                        <img src="@imagePath" class="img-responsive" alt="No. @i" />
+                    }
+                </td>
+            }
+        </tr>
+        <tr>
+            @for (int i = 40; i < 50; i++)
+            {
+                <td>
+                    @if (i < Model.numberCountList.Count)
+                    {
+                        @Model.numberCountList.ElementAt(i)
+                    }
+                </td>
+            }
+        </tr>
+    </table>
+</div>

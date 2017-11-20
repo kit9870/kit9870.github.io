@@ -1,0 +1,70 @@
+﻿.recordhistory th {
+    background-color: #003B7F;
+    color: #FFFFFF;
+    border: 0px #003B7F !important;
+}
+
+.navbar {
+    border-color: #003B7F;
+}
+
+.navbar-header {
+    background-color: #003B7F;
+    border-color: #003B7F;
+}
+
+.navbar-inverse .navbar-toggle {
+    border-color: #3b5d83;
+}
+
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+    background-color: #0056b9;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #FFFFFF;
+    text-shadow: 0px 1px 0px rgba(255,255,255,0.25);
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+    color: #a7a7a7;
+}
+
+.navbar-inverse .navbar-collapse {
+    background-color: #003B7F;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+   color: #FFFFFF;
+   text-shadow: 0px 1px 0px rgba(255,255,255,0.25);
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: #a7a7a7;
+}
+
+footer {
+    background-color: #003B7F;
+    padding: 20px;
+    color: #FFFFFF;
+}
+
+td,th {
+    text-align: center;
+}
+
+.num-appear-table img {
+    margin: auto;
+}
+
+.num-appear-table {
+    font-weight: bold; 
+}
+
+.container-fluid {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
